@@ -5,7 +5,8 @@ console.log('App Running');
 // data
 var appData = {
     title: 'Indecision App',
-    subtitle: 'Put your life in the hands of a computer!'
+    subtitle: 'Put your life in the hands of a computer!',
+    options: ['One', 'Two']
 };
 
 // JSX - JavaScript XML
@@ -17,17 +18,22 @@ var template = React.createElement(
         null,
         appData.title
     ),
-    React.createElement(
+    appData.subtitle && React.createElement(
         'p',
         null,
         appData.subtitle
+    ),
+    React.createElement(
+        'p',
+        null,
+        appData.options && appData.options.length > 0 ? 'here are your options..' : 'No Options!'
     )
 );
 
 /* PLAYGOUND DATA */
 var user = {
-    name: 'Ahmed',
-    age: 30,
+    name: 'Andrew',
+    age: 26,
     location: 'San Francisco, CA'
 };
 
@@ -47,9 +53,9 @@ var templateTwo = React.createElement(
     React.createElement(
         'h2',
         null,
-        user.name + '!'
+        user.name ? user.name + '!' : 'Anonymous'
     ),
-    React.createElement(
+    user.age && user.age > 17 && React.createElement(
         'p',
         null,
         'Age: ',
@@ -59,4 +65,4 @@ var templateTwo = React.createElement(
 );
 
 var appRoot = document.querySelector('#app');
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);
