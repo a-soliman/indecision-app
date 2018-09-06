@@ -2,6 +2,12 @@
 
 console.log('App Running');
 
+// data
+var appData = {
+    title: 'Indecision App',
+    subtitle: 'Put your life in the hands of a computer!'
+};
+
 // JSX - JavaScript XML
 var template = React.createElement(
     'div',
@@ -9,15 +15,14 @@ var template = React.createElement(
     React.createElement(
         'h1',
         null,
-        'Indecision App!'
+        appData.title
     ),
     React.createElement(
         'p',
         null,
-        'This is some info'
+        appData.subtitle
     )
 );
 
 var appRoot = document.querySelector('#app');
-
 ReactDOM.render(template, appRoot);
