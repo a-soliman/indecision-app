@@ -24,5 +24,39 @@ var template = React.createElement(
     )
 );
 
+/* PLAYGOUND DATA */
+var user = {
+    name: 'Ahmed',
+    age: 30,
+    location: 'San Francisco, CA'
+};
+
+function getLocation(user) {
+    if (!user.location) return;
+    return React.createElement(
+        'p',
+        null,
+        'location: ',
+        user.location
+    );
+}
+
+var templateTwo = React.createElement(
+    'div',
+    null,
+    React.createElement(
+        'h2',
+        null,
+        user.name + '!'
+    ),
+    React.createElement(
+        'p',
+        null,
+        'Age: ',
+        user.age
+    ),
+    getLocation(user)
+);
+
 var appRoot = document.querySelector('#app');
-ReactDOM.render(template, appRoot);
+ReactDOM.render(templateTwo, appRoot);

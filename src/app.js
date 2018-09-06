@@ -14,5 +14,26 @@ const template = (
     </div>
 );
 
+
+/* PLAYGOUND DATA */
+const user = {
+    name: 'Ahmed',
+    age: 30,
+    location: 'San Francisco, CA'
+};
+
+function getLocation(user) {
+    if ( !user.location ) return;
+    return <p>location: {user.location}</p>; 
+}
+
+const templateTwo = (
+    <div>
+        <h2>{user.name + '!'}</h2>
+        <p>Age: {user.age}</p>
+        {getLocation(user)}
+    </div>
+);
+
 const appRoot = document.querySelector('#app');
-ReactDOM.render(template, appRoot);
+ReactDOM.render(templateTwo, appRoot);
