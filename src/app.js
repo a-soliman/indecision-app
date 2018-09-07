@@ -7,39 +7,54 @@ const appData = {
     options: ['One', 'Two']
 };
 
-// JSX - JavaScript XML
-const template = (
-    <div>
-        <h1>{appData.title}</h1>
-        {appData.subtitle && <p>{appData.subtitle}</p>}
-        <p>{appData.options && appData.options.length > 0 ? 
-            'here are your options..'
-            : 
-            'No Options!'}</p>
-        
-    </div>
-);
-
-
-/* PLAYGOUND DATA */
-const user = {
-    name: 'Andrew',
-    age: 26,
-    location: 'San Francisco, CA'
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    const input = e.target.elements.option;
+    const optionToAdd = input.value.trim();
+    
+    if ( optionToAdd ) {
+        appData.options.push(optionToAdd);
+        input.value = '';
+        console.log(appData.options);
+        renderIndecisionApp();
+    } 
 };
 
-function getLocation(user) {
-    if ( !user.location ) return;
-    return <p>location: {user.location}</p>; 
-}
+const removeAllOptions = (e) => {
+    appData.options = [];
+    renderIndecisionApp();
+};
 
-const templateTwo = (
-    <div>
-        <h2>{user.name ? user.name + '!' : 'Anonymous'}</h2>
-        {user.age && user.age > 17 && <p>Age: {user.age}</p>}
-        {getLocation(user)}
-    </div>
-);
 
-const appRoot = document.querySelector('#app');
-ReactDOM.render(template, appRoot);
+const renderIndecisionApp = () => {
+    const appRoot = document.querySelector('#app');
+    
+    // JSX - JavaScript XML
+    const template = (
+        <div>
+            <h1>{appData.title}</h1>
+            {appData.subtitle && <p>{appData.subtitle}</p>}
+            <p>{appData.options && appData.options.length > 0 ? 
+                'here are your options..'
+                : 
+                'No Options!'}
+            </p>
+            <button onClick={removeAllOptions}>Remove all</button>
+            <ol>
+                {
+                    appData.options.map( (option, i) => <li key={i}>{option}</li>)
+                }
+            </ol>
+
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option" />
+                <button>Add Option</button>
+            </form>
+            
+        </div>
+    );
+
+    ReactDOM.render(template, appRoot);
+};
+
+renderIndecisionApp();

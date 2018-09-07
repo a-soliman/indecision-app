@@ -9,60 +9,75 @@ var appData = {
     options: ['One', 'Two']
 };
 
-// JSX - JavaScript XML
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        appData.title
-    ),
-    appData.subtitle && React.createElement(
-        'p',
-        null,
-        appData.subtitle
-    ),
-    React.createElement(
-        'p',
-        null,
-        appData.options && appData.options.length > 0 ? 'here are your options..' : 'No Options!'
-    )
-);
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
+    var input = e.target.elements.option;
+    var optionToAdd = input.value.trim();
 
-/* PLAYGOUND DATA */
-var user = {
-    name: 'Andrew',
-    age: 26,
-    location: 'San Francisco, CA'
+    if (optionToAdd) {
+        appData.options.push(optionToAdd);
+        input.value = '';
+        console.log(appData.options);
+        renderIndecisionApp();
+    }
 };
 
-function getLocation(user) {
-    if (!user.location) return;
-    return React.createElement(
-        'p',
+var removeAllOptions = function removeAllOptions(e) {
+    appData.options = [];
+    renderIndecisionApp();
+};
+
+var renderIndecisionApp = function renderIndecisionApp() {
+    var appRoot = document.querySelector('#app');
+
+    // JSX - JavaScript XML
+    var template = React.createElement(
+        'div',
         null,
-        'location: ',
-        user.location
+        React.createElement(
+            'h1',
+            null,
+            appData.title
+        ),
+        appData.subtitle && React.createElement(
+            'p',
+            null,
+            appData.subtitle
+        ),
+        React.createElement(
+            'p',
+            null,
+            appData.options && appData.options.length > 0 ? 'here are your options..' : 'No Options!'
+        ),
+        React.createElement(
+            'button',
+            { onClick: removeAllOptions },
+            'Remove all'
+        ),
+        React.createElement(
+            'ol',
+            null,
+            appData.options.map(function (option, i) {
+                return React.createElement(
+                    'li',
+                    { key: i },
+                    option
+                );
+            })
+        ),
+        React.createElement(
+            'form',
+            { onSubmit: onFormSubmit },
+            React.createElement('input', { type: 'text', name: 'option' }),
+            React.createElement(
+                'button',
+                null,
+                'Add Option'
+            )
+        )
     );
-}
 
-var templateTwo = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h2',
-        null,
-        user.name ? user.name + '!' : 'Anonymous'
-    ),
-    user.age && user.age > 17 && React.createElement(
-        'p',
-        null,
-        'Age: ',
-        user.age
-    ),
-    getLocation(user)
-);
+    ReactDOM.render(template, appRoot);
+};
 
-var appRoot = document.querySelector('#app');
-ReactDOM.render(template, appRoot);
+renderIndecisionApp();
