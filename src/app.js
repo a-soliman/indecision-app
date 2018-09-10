@@ -25,6 +25,12 @@ const removeAllOptions = (e) => {
     renderIndecisionApp();
 };
 
+const onMakeDecision = () => {
+    const randomNum = Math.floor(Math.random() * appData.options.length);
+    const slectedOption = appData.options[randomNum];
+    console.log(slectedOption);
+};
+
 
 const renderIndecisionApp = () => {
     const appRoot = document.querySelector('#app');
@@ -39,7 +45,8 @@ const renderIndecisionApp = () => {
                 : 
                 'No Options!'}
             </p>
-            <button onClick={removeAllOptions}>Remove all</button>
+            <button disabled={appData.options.length == 0} onClick={onMakeDecision}>What should I do?</button>
+            <button disabled={appData.options.length == 0} onClick={removeAllOptions}>Remove all</button>
             <ol>
                 {
                     appData.options.map( (option, i) => <li key={i}>{option}</li>)

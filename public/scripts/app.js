@@ -27,6 +27,12 @@ var removeAllOptions = function removeAllOptions(e) {
     renderIndecisionApp();
 };
 
+var onMakeDecision = function onMakeDecision() {
+    var randomNum = Math.floor(Math.random() * appData.options.length);
+    var slectedOption = appData.options[randomNum];
+    console.log(slectedOption);
+};
+
 var renderIndecisionApp = function renderIndecisionApp() {
     var appRoot = document.querySelector('#app');
 
@@ -51,7 +57,12 @@ var renderIndecisionApp = function renderIndecisionApp() {
         ),
         React.createElement(
             'button',
-            { onClick: removeAllOptions },
+            { disabled: appData.options.length == 0, onClick: onMakeDecision },
+            'What should I do?'
+        ),
+        React.createElement(
+            'button',
+            { disabled: appData.options.length == 0, onClick: removeAllOptions },
             'Remove all'
         ),
         React.createElement(
