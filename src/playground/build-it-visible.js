@@ -24,9 +24,7 @@ class VisibilityApp extends React.Component {
 
     updateButtonText(e) {
         const button = e.target;
-
-        if ( button.innerText == 'Show details' ) button.innerText = 'Hide details';
-        else button.innerText = 'Show details';
+        button.innerText = button.innerText == 'Show details' ? 'Hide details' : 'Show details';
     }
 
     render() {
