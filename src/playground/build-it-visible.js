@@ -1,32 +1,44 @@
-const app = {
-    title: 'Visible Toggle',
-    details: 'These are the details',
-    show: false
-};
+class VisibilityApp extends React.Component {
+    constructor(props) {
+        super(props);
+        this.title      = 'Visiblility Toggle';
+        this.details    = 'These are the details';
+        this.state      = {
+            visible: false
+        };
 
-const toggleDetails = (e) => {
-    app.show = !app.show;
+        this.toggleDetails = this.toggleDetails.bind(this);
 
-    if ( e.target.innerText == 'Show details' ) {
-        e.target.innerText = 'Hide Details';
-    } else {
-        e.target.innerText = 'Show details';
     }
 
-    renderApp();
-};
+    toggleDetails(e) {
+        console.log('toggling...');
+        this.setState((prevState) => {
+            return {
+                visible: !prevState.visible
+            };
+        });
+        
+        this.updateButtonText(e);
+    }
 
-const renderApp = () => {
-    const container = document.querySelector('#app');
-    const template = (
-        <div>
-            <h1>{app.title}</h1>
-            <button onClick={toggleDetails}>Show details</button>
-            <p>{app.show && app.details}</p>
-        </div>
-    );
+    updateButtonText(e) {
+        const button = e.target;
 
-    ReactDOM.render(template, container);
+        if ( button.innerText == 'Show details' ) button.innerText = 'Hide details';
+        else button.innerText = 'Show details';
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>{this.title}</h1>
+                <button onClick={this.toggleDetails}>Show details</button>
+                <p>{this.state.visible && this.details}</p>
+            </div>
+        );
+    }
 }
 
-renderApp();
+const appRoot = document.querySelector('#app');
+ReactDOM.render(<VisibilityApp />, appRoot);
