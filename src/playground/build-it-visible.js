@@ -8,7 +8,6 @@ class VisibilityApp extends React.Component {
         };
 
         this.toggleDetails = this.toggleDetails.bind(this);
-
     }
 
     toggleDetails(e) {
