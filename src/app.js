@@ -1,3 +1,17 @@
+class LocalStorage {
+    constructor() {}
+    
+    getOptions() {
+        return JSON.parse(localStorage.getItem('options'));
+    }
+    save(options) {
+        options = JSON.stringify(options);
+        localStorage.setItem('options', options);
+    }
+}
+
+const ls = new LocalStorage();
+
 class IndecisionApp extends React.Component {
     constructor(props) {
         super(props);
@@ -11,12 +25,24 @@ class IndecisionApp extends React.Component {
         this.handlePick             = this.handlePick.bind(this);
     }
 
+    /* LIFE SYCLE HOOKS */
+    componentDidMount() {
+        let options = ls.getOptions() || [];
+        this.setState(() => ( {options} ));
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.options.length !== this.state.options.length) {
+            ls.save(this.state.options);
+        }
+    }
+    componentWillUnmount() { console.log('Component will unmount'); }
+
     handleDeleteOptions() {
         this.setState(() => ( { options: []} ));
     }
 
     handleDeleteOption(optionToRemove) {
-        console.log('handle delete option: ' + optionToRemove);
         this.setState((prevState) => {
             return {
                 options: prevState.options.filter(option => option !== optionToRemove)
