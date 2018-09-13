@@ -138,7 +138,7 @@ const Options = (props) => {
             >
                 Remove all
             </button>
-            <p>Options Component</p>
+            {props.options.length === 0 && <p>Please add an option to get started!</p>}
             {
                 props.options.map( (option, i) => (
                     <Option 

@@ -199,10 +199,10 @@ var Options = function Options(props) {
             },
             'Remove all'
         ),
-        React.createElement(
+        props.options.length === 0 && React.createElement(
             'p',
             null,
-            'Options Component'
+            'Please add an option to get started!'
         ),
         props.options.map(function (option, i) {
             return React.createElement(Option, {
