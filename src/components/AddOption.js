@@ -8,10 +8,9 @@ export default class AddOption extends React.Component {
             message: ''
         };
 
-        this.submit = this.submit.bind(this);
         this.clearMessage = this.clearMessage.bind(this);
     }
-    submit(e) {
+    submit = (e) => {
         e.preventDefault();
         
         const valueToAdd    = e.target.elements.option.value.trim();
