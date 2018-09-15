@@ -13,7 +13,7 @@ export default class AddOption extends React.Component {
     }
     submit(e) {
         e.preventDefault();
-
+        
         const valueToAdd    = e.target.elements.option.value.trim();
         const response      = this.props.handleAddOption(valueToAdd);
 
