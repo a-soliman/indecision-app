@@ -11,16 +11,8 @@ import AddOption from './AddOption';
 const ls = new LocalStorage();
 
 export default class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            options: []
-        };
-
-        this.handleDeleteOptions    = this.handleDeleteOptions.bind(this);
-        this.handleAddOption        = this.handleAddOption.bind(this);
-        this.handleDeleteOption     = this.handleDeleteOption.bind(this);
-        this.handlePick             = this.handlePick.bind(this);
+    state = {
+        options: []
     }
 
     /* LIFE SYCLE HOOKS */
@@ -36,11 +28,11 @@ export default class IndecisionApp extends React.Component {
     }
     componentWillUnmount() { console.log('Component will unmount'); }
 
-    handleDeleteOptions() {
+    handleDeleteOptions = () => {
         this.setState(() => ( { options: []} ));
     }
 
-    handleDeleteOption(optionToRemove) {
+    handleDeleteOption = (optionToRemove) => {
         this.setState((prevState) => {
             return {
                 options: prevState.options.filter(option => option !== optionToRemove)
@@ -48,7 +40,7 @@ export default class IndecisionApp extends React.Component {
         });
     }
 
-    handleAddOption(option) {
+    handleAddOption = (option) => {
         if ( !option ) {
             return {
                 success: false, 
@@ -72,7 +64,7 @@ export default class IndecisionApp extends React.Component {
         };
     }
 
-    handlePick() {
+    handlePick = ()  => {
         const random = Math.floor(Math.random() * this.state.options.length);
         const option = this.state.options[random];
         console.log(option);
