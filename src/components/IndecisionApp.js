@@ -6,13 +6,15 @@ import Header from './Header';
 import Action from './Action';
 import Options from './Options';
 import AddOption from './AddOption';
+import OptionModal from './OptionModal';
 
 
 const ls = new LocalStorage();
 
 export default class IndecisionApp extends React.Component {
     state = {
-        options: []
+        options: [],
+        selectedOption: undefined
     }
 
     /* LIFE SYCLE HOOKS */
@@ -67,7 +69,20 @@ export default class IndecisionApp extends React.Component {
     handlePick = ()  => {
         const random = Math.floor(Math.random() * this.state.options.length);
         const option = this.state.options[random];
+        this.setState(() => {
+            return {
+                selectedOption: option
+            };
+        });
         console.log(option);
+    }
+
+    clearSelectedOption = () => {
+        this.setState(() => {
+            return {
+                selectedOption: undefined
+            };
+        });
     }
 
     render() {
@@ -88,6 +103,11 @@ export default class IndecisionApp extends React.Component {
                     handleDeleteOption= {this.handleDeleteOption}
                 />
                 <AddOption handleAddOption={this.handleAddOption}/>
+
+                <OptionModal 
+                    selectedOption={this.state.selectedOption}
+                    clearSelectedOption = {this.clearSelectedOption}
+                />
             </div>
         );
     }
